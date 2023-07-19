@@ -1,28 +1,30 @@
-import Enzyme, { shallow } from 'enzyme';
+import Enzyme, { ShallowWrapper } from 'enzyme';
 import Adapter from '@cfaester/enzyme-adapter-react-18';
 import App from './App';
+import { findbytestIdAttr, setup } from './utils/testUtils';
 
 // setup enzyme's react adapter
 Enzyme.configure({ adapter: new Adapter() });
 
 test('should render without crashing', () => {
-  const wrapper = shallow(<App />);
-  const appComponent = wrapper.find("[data-test-id='component-app']");
+  const wrapper: ShallowWrapper = setup(<App />);
+  const appComponent = findbytestIdAttr(wrapper, 'component-app');
   // assert
   expect(appComponent.length).toBe(1);
 });
 
 test('should render the increment button', () => {
-  const wrapper = shallow(<App />);
-  const buttonElement = wrapper.find("[data-test-id='button-element']");
+  const wrapper: ShallowWrapper = setup(<App />);
+  const buttonElement = findbytestIdAttr(wrapper, 'button-element');
   // assert
   expect(buttonElement.length).toBe(1);
 });
 
 test('should render the counter display', () => {
-  const wrapper = shallow(<App />);
-  const counterDisplayElement = wrapper.find(
-    "[data-test-id='counter-display-element']"
+  const wrapper: ShallowWrapper = setup(<App />);
+  const counterDisplayElement = findbytestIdAttr(
+    wrapper,
+    'counter-display-element'
   );
   // assert
   expect(counterDisplayElement.length).toBe(1);
