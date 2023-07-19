@@ -30,6 +30,21 @@ test('should render the counter display', () => {
   expect(counterDisplayElement.length).toBe(1);
 });
 
-test('should render the counter display with 0 initially', () => {});
+test('should render the counter display with 0 initially', () => {
+  const wrapper: ShallowWrapper = setup(<App />);
+  const count = findbytestIdAttr(wrapper, 'count').text();
+  // assert
+  expect(count).toBe('0');
+});
 
-test('should increment the counter display on icrement button clicked', () => {});
+test('should increment the counter display on icrement button clicked', () => {
+  // check for the button element
+  const wrapper: ShallowWrapper = setup(<App />);
+  const buttonElement = findbytestIdAttr(wrapper, 'button-element');
+  // click the button element
+  buttonElement.simulate('click');
+  // find the display count and test that the number has incremented or not
+  const count = findbytestIdAttr(wrapper, 'count').text();
+  // assert
+  expect(count).toBe('1');
+});
